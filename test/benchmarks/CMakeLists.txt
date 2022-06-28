@@ -2,8 +2,7 @@
 # Copyright 2018-2019 Pawel Bylica.
 # Licensed under the Apache License, Version 2.0.
 
-hunter_add_package(benchmark)
-find_package(benchmark CONFIG REQUIRED)
+find_package(benchmark REQUIRED)
 
 add_executable(ethash-bench
     ethash_benchmarks.cpp

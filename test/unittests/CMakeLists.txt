@@ -4,8 +4,7 @@
 
 include(GoogleTest)
 
-hunter_add_package(GTest)
-find_package(GTest CONFIG REQUIRED)
+find_package(GTest REQUIRED)
 
 add_executable(
     ethash-test
