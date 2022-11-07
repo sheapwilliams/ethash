@@ -4,7 +4,6 @@
 
 #pragma GCC diagnostic ignored "-Wpedantic"
 #pragma clang diagnostic ignored "-Wpedantic"
-#pragma warning(disable : 4127)
 
 #include <ethash/endianness.hpp>
 #include <ethash/ethash-internal.hpp>
