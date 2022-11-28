@@ -5,6 +5,7 @@
 #include "keccak_utils.hpp"
 #include <benchmark/benchmark.h>
 #include <ethash/keccak.h>
+#include <iostream>
 
 
 void fake_keccakf1600(uint64_t* state) noexcept  // NOLINT(readability-non-const-parameter)
@@ -23,6 +24,7 @@ static void keccak256(benchmark::State& state)
     {
         auto h = ethash_keccak256(data.data(), data.size());
         benchmark::DoNotOptimize(h.bytes);
+        std::cout << "Hash is: " << h.word64s[0] << std::endl;
     }
 }
 BENCHMARK(keccak256)->Arg(0)->Arg(32)->Arg(135)->Arg(136)->Arg(271)->Arg(272)->Arg(407)->Arg(408)->Arg(500);
