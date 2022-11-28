@@ -31,6 +31,6 @@ static void xkcp_keccak256(benchmark::State& state)
         benchmark::DoNotOptimize(h.bytes);
     }
 }
-BENCHMARK(xkcp_keccak256)->Arg(0)->Arg(32)->Arg(135)->Arg(136)->Arg(271)->Arg(272)->Arg(407)->Arg(408)->Arg(500);
+BENCHMARK(xkcp_keccak256)->Arg(0)->Arg(32)->Arg(500)->Arg(1086)->Arg(1087)->Arg(2174)->Arg(2175);
 
 BENCHMARK_MAIN();
