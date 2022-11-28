@@ -17,3 +17,9 @@ add_executable(ethash-bench
 target_link_libraries(ethash-bench PRIVATE ethash::global-context benchmark::benchmark)
 target_include_directories(ethash-bench PRIVATE ${ETHASH_PRIVATE_INCLUDE_DIR})
 set_target_properties(ethash-bench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ..)
+
+
+add_executable(xkcp-bench xkcp_benchmarks.cpp)
+target_link_libraries(xkcp-bench PRIVATE ethash::global-context benchmark::benchmark xkcp-avx2)
+target_include_directories(xkcp-bench PRIVATE ${ETHASH_PRIVATE_INCLUDE_DIR})
+set_target_properties(xkcp-bench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ..)

@@ -12,6 +12,7 @@ include(CableToolchains)
 include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
 include(HunterGate)
+include(cmake/xkcp.cmake)
 
 cable_configure_toolchain(DEFAULT cxx14)
 cable_set_build_type(DEFAULT Release CONFIGURATION_TYPES Release RelWithDebInfo Debug)
