@@ -25,7 +25,8 @@ static void keccak256(benchmark::State& state)
         benchmark::DoNotOptimize(h.bytes);
     }
 }
-BENCHMARK(keccak256)->Arg(0)->Arg(32)->Arg(64)->Arg(135)->Arg(136);
+BENCHMARK(keccak256)->Arg(0)->Arg(32)->Arg(135)->Arg(136)->Arg(271)->Arg(272)->Arg(407)->Arg(408)->Arg(500);
+
 
 
 static void keccak512(benchmark::State& state)
