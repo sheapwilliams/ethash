@@ -4,7 +4,6 @@
 #include "keccak_utils.hpp"
 #include <benchmark/benchmark.h>
 #include <ethash/hash_types.h>
-#include <iostream>
 
 extern "C" {
 #include "FIPS202/KeccakHash.h"
@@ -18,7 +17,6 @@ static auto xkcp_wrapper(const unsigned char* d, std::size_t s) {
   Keccak_HashInitialize(&hashInstance, 1088,  512, 256, 0x01);
   Keccak_HashUpdate(&hashInstance, d, s);
   Keccak_HashFinal(&hashInstance, (hash.bytes));
-  std::cout << "Hash is: " << hash.word64s[0] << std::endl; // 4333579421379646149
   return hash;
 }
 
