@@ -15,7 +15,7 @@ static auto xkcp_wrapper(const unsigned char* d, std::size_t s) {
   Keccak_HashInstance hashInstance;
 
   Keccak_HashInitialize(&hashInstance, 1088,  512, 256, 0x01);
-  Keccak_HashUpdate(&hashInstance, d, s);
+  Keccak_HashUpdate(&hashInstance, d, s*8);
   Keccak_HashFinal(&hashInstance, (hash.bytes));
   return hash;
 }
@@ -31,6 +31,6 @@ static void xkcp_keccak256(benchmark::State& state)
         benchmark::DoNotOptimize(h.bytes);
     }
 }
-BENCHMARK(xkcp_keccak256)->Arg(0)->Arg(32)->Arg(500)->Arg(1086)->Arg(1087)->Arg(2174)->Arg(2175);
+BENCHMARK(xkcp_keccak256)->Arg(0)->Arg(32)->Arg(135)->Arg(136)->Arg(271)->Arg(272)->Arg(407)->Arg(408)->Arg(500);
 
 BENCHMARK_MAIN();
