@@ -8,6 +8,11 @@
 
 #include <gtest/gtest.h>
 
+extern "C" {
+#include "FIPS202/KeccakHash.h"
+}
+
+
 using namespace ethash;
 
 struct keccak_test_case
@@ -193,11 +198,28 @@ static keccak_test_case test_cases[] = {
 };
 // clang-format on
 
+ethash::hash256 xkcp_keccak256(const unsigned char *p, unsigned long size) {
+  ethash_hash256 hash{};
+  Keccak_HashInstance hashInstance;
+
+  Keccak_HashInitialize(&hashInstance, 1088,  512, 256, 0x01);
+  Keccak_HashUpdate(&hashInstance, p, size*8);
+  Keccak_HashFinal(&hashInstance, (hash.bytes));
+  return hash;
+}
+
 TEST(keccak, nullptr_256)
 {
     hash256 h = keccak256(nullptr, 0);
     EXPECT_EQ(to_hex(h), test_cases[0].expected_hash256);
 }
+
+TEST(keccak, nullptr_256_xkcp)
+{
+    hash256 h = xkcp_keccak256(nullptr, 0);
+    EXPECT_EQ(to_hex(h), test_cases[0].expected_hash256);
+}
+
 
 TEST(keccak, nullptr_512)
 {
@@ -215,6 +237,17 @@ TEST(keccak, bytes)
         ASSERT_EQ(to_hex(h256), t.expected_hash256) << t.input_size;
         const auto h512 = keccak512(data, t.input_size);
         ASSERT_EQ(to_hex(h512), t.expected_hash512) << t.input_size;
+    }
+}
+
+TEST(keccak, xkcp_bytes)
+{
+    const uint8_t* const data = reinterpret_cast<const uint8_t*>(test_text);
+
+    for (auto& t : test_cases)
+    {
+        const auto h256 = xkcp_keccak256(data, t.input_size);
+        EXPECT_EQ(to_hex(h256), t.expected_hash256) << t.input_size;
     }
 }
 
