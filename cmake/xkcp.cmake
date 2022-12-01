@@ -1,3 +1,13 @@
+add_library(
+  xkcp-ref STATIC
+  vendor/xkcp/lib/low/KeccakP-1600/ref-64bits/KeccakP-1600-reference.c
+  vendor/xkcp/lib/high/Keccak/FIPS202/KeccakHash.c
+  vendor/xkcp/lib/high/Keccak/KeccakSponge.c)
+target_include_directories(
+  xkcp-ref
+  PUBLIC vendor/xkcp/lib/low/KeccakP-1600/ref-64bits vendor/xkcp/lib/high/Keccak
+         test/benchmarks vendor/xkcp/lib/common)
+
 enable_language(ASM)
 add_library(
   xkcp-avx2 STATIC
