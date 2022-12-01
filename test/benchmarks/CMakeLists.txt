@@ -28,3 +28,8 @@ add_executable(xkcp-x86-64-bench xkcp_benchmarks.cpp)
 target_link_libraries(xkcp-x86-64-bench PRIVATE ethash::global-context benchmark::benchmark xkcp-x86-64)
 target_include_directories(xkcp-x86-64-bench PRIVATE ${ETHASH_PRIVATE_INCLUDE_DIR})
 set_target_properties(xkcp-x86-64-bench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ..)
+
+add_executable(xkcp-ref-bench xkcp_benchmarks.cpp)
+target_link_libraries(xkcp-ref-bench PRIVATE ethash::global-context benchmark::benchmark xkcp-ref)
+target_include_directories(xkcp-ref-bench PRIVATE ${ETHASH_PRIVATE_INCLUDE_DIR})
+set_target_properties(xkcp-ref-bench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ..)
