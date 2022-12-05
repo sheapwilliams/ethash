@@ -9,13 +9,17 @@ extern "C" {
 #include "FIPS202/KeccakHash.h"
 }
 
-static auto xkcp_wrapper(Keccak_HashInstance& h, const unsigned char* d, std::size_t s) {
+static auto xkcp_keccak256(Keccak_HashInstance& h, const unsigned char * c, std::size_t s) {
+		ethash_hash256 hash{};
 
-  ethash_hash256 hash{};
-  Keccak_HashUpdate(&h, d, s*8);
-  Keccak_HashFinal(&h, (hash.bytes));
-  return hash;
+		KeccakP1600_OverwriteWithZeroes(h.sponge.state, 200);
+		h.sponge.squeezing = 0;
+		h.sponge.byteIOIndex = 0;
+		Keccak_HashUpdate(&h, c, s*8);
+		Keccak_HashFinal(&h, (hash.bytes));
+		return hash;
 }
+
 
 static void xkcp_keccak256(benchmark::State& state)
 {
@@ -27,7 +31,7 @@ static void xkcp_keccak256(benchmark::State& state)
  
     for (auto _ : state)
     {
-        auto h = xkcp_wrapper(hashInstance, data.data(), data.size());
+        auto h = xkcp_keccak256(hashInstance, data.data(), data.size());
         benchmark::DoNotOptimize(h.bytes);
     }
 }
